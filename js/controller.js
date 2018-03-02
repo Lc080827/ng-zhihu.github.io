@@ -41,9 +41,6 @@ app.controller("lunboController",function($scope,$http){
    $http({
       method:'GET',
       url:'http://192.168.10.141:8888/news-at/api/4/news/latest',
-      headers:{
-          "Content-Type":"application/x-www-form-urlencoded"
-      },
       params:{
           columnId:$scope.id
       }
