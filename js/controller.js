@@ -18,14 +18,14 @@ app.controller('homepageController',function($scope,$http,$routeParams){
     $scope.id = $routeParams.id;
     $http({
        method:'GET',
-       url:'//192.168.10.141:8888/news-at/api/4/news/latest',
+       url:'http://192.168.10.141:8888/news-at/api/4/news/latest',
         params:{
             columnId:$scope.id
         }
     }).then(function(data){
         $scope.newsList = data.data.stories;
         for(var i=0;i<$scope.newsList.length;i++){
-            $scope.newsList[i].url = '//192.168.10.141:8888/news-at/api/4/news/latest?id='+$scope.newsList[i].id;
+            $scope.newsList[i].url = 'http://192.168.10.141:8888/news-at/api/4/news/latest?id='+$scope.newsList[i].id;
         }
         // 修改图片链接 直接访问知乎图片显示403 需要缓存处理
         $scope.attachImageUrl=function(srcUrl) {
@@ -40,7 +40,7 @@ app.controller('homepageController',function($scope,$http,$routeParams){
 app.controller("lunboController",function($scope,$http){
    $http({
       method:'GET',
-      url:'//192.168.10.141:8888/news-at/api/4/news/latest',
+      url:'http://192.168.10.141:8888/news-at/api/4/news/latest',
       params:{
           columnId:$scope.id
       }
