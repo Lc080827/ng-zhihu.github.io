@@ -1,0 +1,10 @@
+<div class="content">
+    <div class="imgBox">
+        <ul id="sliderBox" class="sliderBox">
+            <li ng-repeat="pic in picList">
+                <a href=""><img src="{{attachImageUrl(pic.image)}}"></a>
+                <p>{{pic.title}}</p>
+            </li>
+        </ul>
+    </div>
+</div>

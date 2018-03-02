@@ -1,0 +1,55 @@
+@charset "utf-8";
+/*清除默认样式*/
+body,p,ul,li,a,input{margin:0;padding:0;text-decoration:none;list-style: none;color:#000;}
+
+body{
+    position:relative;
+    font-size: 0.2rem;
+}
+
+/*轮播图*/
+.bx-wrapper .bx-pager, .bx-wrapper .bx-controls-auto{
+    position: relative;
+    top:-0.8rem;
+    overflow: hidden;
+}
+.bx-controls{
+    position: absolute;
+    left:44%;
+}
+.imgBox ul li a img{
+    width:100%;
+    height:3.5rem;
+}
+.imgBox ul li p{
+    text-align: center;
+    font-weight: 700;
+}
+
+/*homepage样式*/
+.homeContent{
+    width:100%;
+    overflow: hidden;
+}
+.homeContent ul li a{
+    display: flex;
+    height:1.0rem;
+    border-bottom: 1px solid #f1f1f1;
+    margin: 0 0.15rem;
+    padding:0.15rem 0 0.15rem 0;
+}
+.homeContent ul li a span{
+    flex:8;
+    font-size:0.25rem;
+    height:0.9rem;
+    line-height: 0.5rem;
+    overflow: hidden;
+    margin-right: 0.1rem;
+}
+.homeContent ul li a div{
+    flex:2;
+}
+.homeContent ul li a div img{
+    width:1.0rem;
+    height:0.9rem;
+}

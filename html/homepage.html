@@ -1,0 +1,11 @@
+<lunbo></lunbo>
+<div class="homeContent">
+    <ul>
+        <li>
+            <a ng-repeat="news in newsList" href="{{news.url}}">
+                <span ng-bind="news.title"></span>
+                <div><img src="{{attachImageUrl(news.images[0])}}" alt=""></div>
+            </a>
+        </li>
+    </ul>
+</div>
