@@ -10,7 +10,7 @@ app.config(['$routeProvider',function($routeProvider){
     });
 }]);
 
-//主页面控制器
+//主页面控制器 homepage
 app.controller('homepageController',function($scope,$http){
     $http({
        method:'GET',
@@ -30,7 +30,7 @@ app.controller("lunboController",function($scope,$http){
        $scope.picList = data.data.top_stories;
        console.log($scope.picList);
    });
-   //图片轮播
+   //图片轮播插件参数配置
     setTimeout(function(){$('#sliderBox').bxSlider({
         mode:'horizontal', //默认的是水平
         displaySlideQty:1,//显示li的个数
@@ -69,7 +69,7 @@ app.filter("attachImageUr",function(){
 });
 
 
-//组件复用
+//组件复用 图片轮播组件
 app.component("lunbo",{
     templateUrl:'component/lunbo.html',
     controller:'lunboController'
