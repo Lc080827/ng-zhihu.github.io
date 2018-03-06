@@ -1,0 +1,7 @@
+<div class="home-detail">
+    <div class="detail-header">
+        <div class="detail-header-img"><img src="{{ detail.image | attachImageUr}}"></div>
+        <div class="factory"><img src="images/iconfont-6.png" ng-click="back()" /></div>
+    </div>
+    <div class="detail-content" ng-bind-html="detail.body | attachImageUr"></div>
+</div>

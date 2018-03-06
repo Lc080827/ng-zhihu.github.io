@@ -2,8 +2,7 @@
     <div class="imgBox">
         <ul id="sliderBox" class="sliderBox">
             <li ng-repeat="pic in picList">
-                <a href=""><img src="{{attachImageUrl(pic.image)}}"></a>
-                <p>{{pic.title}}</p>
+                <a href="#/detail/{{pic.id}}"><img src="{{pic.image | attachImageUr}}"></a>
             </li>
         </ul>
     </div>
