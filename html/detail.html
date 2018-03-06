@@ -1,7 +1,22 @@
 <div class="home-detail">
     <div class="detail-header">
         <div class="detail-header-img"><img src="{{ detail.image | attachImageUr}}"></div>
-        <div class="factory"><img src="images/iconfont-6.png" ng-click="back()" /></div>
     </div>
     <div class="detail-content" ng-bind-html="detail.body | attachImageUr"></div>
+
+    <div class="detail-footer">
+        <ul class="menu-wrapper">
+            <li class="menu-item"><img ng-click="back()" src="images/back.png" /></li>
+            <li class="menu-item"><img src="images/down.png" /></li>
+            <li class="menu-item">
+                <img src="images/good.png" />
+                <span>{{storyExtra.popularity }}</span>
+            </li>
+            <li class="menu-item"><img src="images/upload.png" /></li>
+            <li class="menu-item">
+                <img src="images/message.png" />
+                <span>{{storyExtra.comments  }}</span>
+            </li>
+        </ul>
+    </div>
 </div>

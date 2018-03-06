@@ -52,6 +52,14 @@ app.controller("detailController",function($scope,$http,$routeParams){
          $scope.detail = data.data;
          console.log($scope.detail);
     });
+    //获取评论数以及赞的数量url地址
+    $http({
+       method:'GET',
+       url:'http://192.168.10.141:8888/news-at/api/4/story-extra/'+$routeParams.id
+    }).then(function(data){
+        $scope.storyExtra = data.data;
+    });
+    //返回上一级目录
     $scope.back = function(){
         history.go(-1);
     }
