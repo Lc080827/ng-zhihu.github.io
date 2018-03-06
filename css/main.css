@@ -9,12 +9,16 @@ body{
 
 /*轮播图*/
 .content .imgBox{
-    height:205px;
+    height:230px;
     overflow: hidden;
 }
 .bx-wrapper .bx-pager, .bx-wrapper .bx-controls-auto{
     position: relative;
     top:-0.8rem;
+    overflow: hidden;
+}
+.content .imgBox .bx-viewport{
+    height:230px !important;
     overflow: hidden;
 }
 .bx-controls{
@@ -23,11 +27,10 @@ body{
 }
 .imgBox ul li a img{
     width:100%;
-    height:3.5rem;
 }
 .imgBox ul li .slider-title{
     position: absolute;
-    bottom: .75rem;
+    bottom: 2.95rem;
     line-height: 1.2;
     left: 0;
     padding: 0 .48rem;
@@ -35,12 +38,11 @@ body{
     font-size: .35rem;
     color: #fff;
 }
-
 /*头部样式*/
 .header{
+    display: flex;
 }
 .header .list-header{
-    display: flex;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
     top: 0;
@@ -51,7 +53,7 @@ body{
     background: #00a2ea;
     display: -webkit-box;
     display: -webkit-flex;
-    display: flex;
+    position: fixed;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -webkit-flex-direction: row;
