@@ -1,4 +1,4 @@
-var app = angular.module('myapp',['ngRoute','ngSanitize']);
+var app = angular.module('myapp',['ngRoute','ngSanitize','ngAnimate']);
 app.config(['$routeProvider',function($routeProvider){
     $routeProvider
     .when('/',{
@@ -7,6 +7,9 @@ app.config(['$routeProvider',function($routeProvider){
     }).when('/detail/:id',{
         templateUrl:'html/detail.html',
         controller:'detailController'
+    }).when("/them/:id",{
+        templateUrl:'html/them.html',
+        controller:'themController'
     });
 }]);
 
@@ -18,6 +21,27 @@ app.controller('homepageController',function($scope,$http){
     }).then(function(data){
         $scope.newsList = data.data.stories;
         console.log($scope.newsList);
+    });
+    //下拉刷新数据 采用infinite-scroll插件
+    // $scope.Reddit = new Reddit();
+    //侧边栏显示与隐藏
+    $scope.isShowSidebar=false;
+    $scope.toggleSidebar = function(){
+        $scope.isShowSidebar = !$scope.isShowSidebar;
+        //遮罩层弹出使body样式为fixed 禁止下拉框
+        window.document.body.style.position = 'fixed';
+        window.document.body.style.width = '100%';
+    }
+    $scope.hideSidebar = function(){
+        $scope.isShowSidebar = !$scope.isShowSidebar;
+        window.document.body.style.position = 'relative';
+    }
+    //主题日报获取
+    $http({
+        method:'GET',
+        url:'http://192.168.10.141:8888/news-at/api/4/themes'
+    }).then(function(data){
+        $scope.themsList = data.data.others;
     });
 });
 
@@ -65,6 +89,17 @@ app.controller("detailController",function($scope,$http,$routeParams){
     }
 });
 
+//主题日报新闻列表页
+app.controller("themController",function($scope,$http,$routeParams){
+    $http({
+       method:'GET',
+       url:'http://192.168.10.141:8888/news-at/api/4/theme/'+$routeParams.id
+    }).then(function(data){
+        $scope.themList = data.data.stories;
+        window.document.body.style.position = 'relative';
+    });
+});
+
 //自定义图片缓存过滤器
 app.filter("attachImageUr",function(){
     // 修改图片链接 直接访问知乎图片显示403 需要缓存处理
@@ -75,7 +110,6 @@ app.filter("attachImageUr",function(){
         }
     }
 });
-
 
 //组件复用 图片轮播组件
 app.component("lunbo",{

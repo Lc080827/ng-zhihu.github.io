@@ -1,0 +1,13 @@
+<div class="themHeader">
+    <div class="them-header-img"><img src="{{ themsList.image | attachImageUr}}"></div>
+</div>
+<div class="themContent">
+    <ul>
+        <li>
+            <a ng-repeat="them in themList" href="#/detail/{{them.id}}">
+                <span ng-bind="them.title"></span>
+                <div><img src="{{them.images[0] | attachImageUr}}" alt=""></div>
+            </a>
+        </li>
+    </ul>
+</div>

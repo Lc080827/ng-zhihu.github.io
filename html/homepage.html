@@ -1,9 +1,54 @@
 <div class="header">
     <div class="list-header">
-        <div class="header-icon"><img src="images/listPic.png" /></div>
+        <div class="header-icon"><img ng-click="toggleSidebar()" src="images/listPic.png" /></div>
         <div class="header-content"><p><a href="#/">首页</a></p></div>
         <div class="changeCol"><img src="images/changeCol.png" /></div>
     </div>
+    <!--侧边栏展示开始-->
+        <div class="wrap" ng-show="isShowSidebar">
+            <div class="sidebar" ng-class="{true: 'active', false: 'inactive'}[isShowSidebar]">
+                <div class="top">
+                    <img src="images/mypic.png" alt="" class="avatar">
+                    <span class="name">lc</span>
+                </div>
+                <div class="menubar">
+                    <div>
+                        <i class="icon iconfont icon-shoucang"><img src="images/zhihu-shoucang.png"/></i><br>
+                        <span>收藏</span>
+                    </div>
+                    <div>
+                        <i class="icon iconfont icon-xiaoxi"><img src="images/zhihu-msg.png"/></i><br>
+                        <span>消息</span>
+                    </div>
+                    <div>
+                        <i class="icon iconfont icon-shezhi"><img src="images/zhihu-shezhi.png"/></i><br>
+                        <span>设置</span>
+                    </div>
+                </div>
+                <div class="menu-wrapper">
+                    <ul>
+                        <a href="#/" ng-click="hideSidebar()">
+                            <li class="menu-item">
+                                <div class="menu-item-title">首页</div>
+                                <span class="menu-item-pic">+</span>
+                            </li>
+                        </a>
+                        <a ng-repeat="thems in themsList" href="#/them/{{thems.id}}">
+                            <li class="menu-item">
+                                <div class="menu-item-title">{{thems.name}}</div>
+                                <span class="menu-item-pic">+</span>
+                            </li>
+                        </a>
+                    </ul>
+                </div>
+                <div class="foot-menu">
+                    <div class="foot-menu-lx">离线</div>
+                    <div class="foot-menu-yj">夜间</div>
+                </div>
+            </div>
+            <div class="sidebar-mask" ng-click="hideSidebar()"></div>
+        </div>
+    <!--侧边栏展示结束-->
 </div>
 <lunbo></lunbo>
 <div class="homeContent">
