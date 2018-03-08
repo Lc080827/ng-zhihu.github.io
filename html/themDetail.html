@@ -1,8 +1,9 @@
 <div class="home-detail">
-    <div class="detail-header">
-        <div class="detail-header-img"><img src="{{ detail.image | attachImageUr}}"></div>
+    <div class="detail-recommender" ng-repeat="recommender in recommenders">
+        <p>推荐者：</p>
+        <div class="detail-recommender-img"><img src="{{recommender.avatar | attachImageUr}}" /></div>
     </div>
-    <div class="detail-content" ng-bind-html="detail.body | attachImageUr"></div>
+    <div class="detail-content" ng-bind-html="themDetail.body | attachImageUr"></div>
 
     <div class="detail-footer">
         <ul class="menu-wrapper">
@@ -14,10 +15,8 @@
             </li>
             <li class="menu-item"><img src="images/upload.png" /></li>
             <li class="menu-item">
-                <a href="#/comment/{{detail.id}}">
-                    <img src="images/message.png" />
-                    <span>{{storyExtra.comments  }}</span>
-                </a>
+                <img src="images/message.png" />
+                <span>{{storyExtra.comments  }}</span>
             </li>
         </ul>
     </div>

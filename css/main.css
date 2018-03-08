@@ -43,8 +43,6 @@ body{
     display: flex;
 }
 .header .list-header{
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
     top: 0;
     z-index: 4;
     height: 50px;
@@ -121,6 +119,10 @@ body{
     padding:0.15rem;
     line-height: 0.4rem;
     font-size: 0.28rem;
+}
+.home-detail .detail-content h1{
+    line-height: 0.6rem;
+    font-size: 0.4rem;
 }
 .home-detail .detail-content .meta .avatar{
     width:0.3rem;
@@ -296,9 +298,63 @@ body{
 }
 
 /*主题日报列表页*/
+#themListPage{
+    display: flex;
+    width:100%;
+}
+#themListPage .themHeader{
+    top: 0;
+    z-index: 4;
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+    background: #00a2ea;
+    display: -webkit-box;
+    display: -webkit-flex;
+    position: fixed;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+#themListPage .themHeader .them-header-bar{
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    text-align: center;
+}
+#themListPage .themHeader .them-header-bar img{
+    margin-top: 5px;
+}
+#themListPage .themHeader .them-header-title{
+    -webkit-box-flex: 6;
+    -webkit-flex: 6;
+    flex: 6;
+    padding-left: .05rem;
+    color: #FFF;
+    font-size: 0.25rem;
+}
+#themListPage .themPic{
+    position: absolute;
+    width: 100%;
+    height:130px;
+    overflow: hidden;
+}
+#themListPage .themPic .them-header-img img{
+    width: 100%;
+}
+#themListPage .themPic .them-header-description{
+    position: relative;
+    top: -1.0rem;
+    font-size: 0.3rem;
+    color: #FFF;
+    text-align: center;
+}
 .themContent{
     width:100%;
     overflow: hidden;
+    position: relative;
+    top:130px;
 }
 .themHeader .them-header-img img{
     width:100%;
@@ -325,4 +381,203 @@ body{
 .themContent ul li a div img{
     width:1.0rem;
     height:0.9rem;
+}
+
+/*主题日报详情页细览样式*/
+.home-detail .detail-recommender{
+    background: #efefef;
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-left: .5rem;
+}
+.home-detail .detail-recommender p{
+    position: absolute;
+    top: .2rem;
+    left: .3rem;
+    font-size: .25rem;
+    font-weight: 700;
+}
+.home-detail .detail-recommender .detail-recommender-img{
+    height: .5rem;
+    width: .5rem;
+    margin: 0.1rem 0.2rem 0.1rem 1.2rem;
+}
+.home-detail .detail-recommender .detail-recommender-img img{
+    height: .5rem;
+    width: .5rem;
+    border-radius: 50%;
+}
+
+/*评论样式*/
+#comment .comment-head{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 0.6rem;
+    background: #1ba3ea;
+    color: #fff;
+    font-size:0.25rem;
+    text-align: center;
+    line-height: 0.6rem;
+    letter-spacing: 2px;
+    z-index: 15;
+}
+#comment .short-comment{
+    position: relative;
+    top:.6rem;
+    padding-bottom: 40px;
+}
+#comment .short-comment .short-comment-number{
+    font-size: 0.25rem;
+    color: #333;
+    line-height: 0.3rem;
+    font-weight: 700;
+    border-bottom: 1px solid #eee;
+    margin: 0;
+    padding: 0.15rem 0.1rem 0.15rem 0.2rem;
+}
+#comment .short-comment .short-comment-number i{
+    float:right;
+}
+#comment .short-comment ul{
+    padding: 0;
+}
+#comment .short-comment ul li{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    /*font-size: 15px;*/
+    color: #666;
+    border-bottom: 1px solid #eee;
+    padding: 0.2rem;
+}
+#comment .short-comment ul li img{
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 0.4rem;
+    flex: 0 0 0.4rem;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+}
+#comment .short-comment ul li .comment-content{
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding-left: 0.1rem;
+}
+#comment .short-comment ul li .comment-content .author{
+    font-weight: 400;
+}
+#comment .short-comment ul li .comment-content i{
+    float:right;
+}
+#comment .short-comment ul li .comment-content i img{
+    width:0.25rem;
+    height:0.25rem;
+}
+#comment .short-comment ul li .comment-content .text{
+    margin: 0.1rem 0!important;
+    line-height: 0.4rem;
+    font-size: 0.25rem;
+}
+#comment .long-comment{
+    position: relative;
+    top:.6rem;
+    padding-bottom: 10px;
+}
+#comment .long-comment .long-comment-number{
+    font-size: 0.25rem;
+    color: #333;
+    line-height: 0.3rem;
+    font-weight: 700;
+    border-bottom: 1px solid #eee;
+    margin: 0;
+    padding: 0.15rem 0.1rem 0.15rem 0.2rem;
+}
+#comment .long-comment .long-comment-number i{
+    float:right;
+}
+#comment .long-comment ul{
+    padding: 0;
+}
+#comment .long-comment ul li{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    /*font-size: 15px;*/
+    color: #666;
+    border-bottom: 1px solid #eee;
+    padding: 0.2rem;
+}
+#comment .long-comment ul li img{
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 0.4rem;
+    flex: 0 0 0.4rem;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+}
+#comment .long-comment ul li .comment-content{
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding-left: 0.1rem;
+}
+#comment .long-comment ul li .comment-content .author{
+    font-weight: 400;
+}
+#comment .long-comment ul li .comment-content i{
+    float:right;
+}
+#comment .long-comment ul li .comment-content i img{
+    width:0.25rem;
+    height:0.25rem;
+}
+#comment .long-comment ul li .comment-content .text{
+    margin: 0.1rem 0!important;
+    line-height: 0.4rem;
+    font-size: 0.25rem;
+}
+#comment .comment-foot{
+    position: fixed;
+    display: flex;
+    width:100%;
+    bottom: 0;
+    height: 0.6rem;
+    background: #3c3c3c;
+}
+#comment .comment-foot .foot-img{
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 1.0rem;
+    flex: 0 0 1.0rem;
+    border-right: 1px solid #505050;
+    color: #999;
+    text-align: center;
+    line-height: 0.6rem;
+}
+#comment .comment-foot .foot-img img{
+    width:0.4rem;
+    height:0.4rem;
+    margin-top: 0.1rem;
+}
+#comment .comment-foot .foot-text{
+    width:100%;
+}
+#comment .comment-foot .foot-text a{
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    color: #d3d3d3;
+    font-size: 0.25rem;
+    text-align: center;
+    line-height: 0.6rem;
+    display: block;
 }

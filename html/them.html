@@ -1,13 +1,20 @@
-<div class="themHeader">
-    <div class="them-header-img"><img src="{{ themsList.image | attachImageUr}}"></div>
-</div>
-<div class="themContent">
-    <ul>
-        <li>
-            <a ng-repeat="them in themList" href="#/detail/{{them.id}}">
-                <span ng-bind="them.title"></span>
-                <div><img src="{{them.images[0] | attachImageUr}}" alt=""></div>
-            </a>
-        </li>
-    </ul>
+<div id="themListPage">
+    <div class="themHeader">
+        <div class="them-header-bar"><img src="images/listPic.png" /></div>
+        <div class="them-header-title">{{themHeader.name}}</div>
+    </div>
+    <div class="themPic">
+        <div class="them-header-img"><img src="{{ themHeader.image | attachImageUr }}"></div>
+        <div class="them-header-description">{{themHeader.description}}</div>
+    </div>
+    <div class="themContent">
+        <ul>
+            <li>
+                <a ng-repeat="them in themList" href="#/themDetail/{{them.id}}">
+                    <span ng-bind="them.title"></span>
+                    <div><img src="{{them.images[0] | attachImageUr}}" alt=""></div>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
