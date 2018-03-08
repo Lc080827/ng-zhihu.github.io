@@ -181,8 +181,10 @@ body{
     color: #999;
 }
 .home-detail .detail-footer .menu-wrapper .menu-item img{
-    margin: 4px auto;;
+    margin: 11px auto;
     display: block;
+    width: 0.4rem;
+    height: 0.4rem;
 }
 .home-detail .detail-footer .menu-wrapper .menu-item span{
     position: absolute;
@@ -593,6 +595,13 @@ body{
     line-height: 0.6rem;
     letter-spacing: 2px;
     z-index: 15;
+}
+#writeComm .writeComm-head i img{
+    position: absolute;
+    left: 0.2rem;
+    top: 0.1rem;
+    width: 0.4rem;
+    height: 0.4rem;
 }
 #writeComm .writeComm-content .writeComm-form{
     height:100%;

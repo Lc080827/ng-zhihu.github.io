@@ -92,9 +92,11 @@ app.controller("detailController",function($scope,$http,$routeParams){
     }).then(function(data){
         $scope.storyExtra = data.data;
     });
-    //返回上一级目录
-    $scope.back = function(){
-        history.go(-1);
+    $scope.isBeforeShow = true;
+    $scope.isNowShow = false;
+    $scope.goodClick = function(){
+        $scope.isBeforeShow = !$scope.isBeforeShow;
+        $scope.isNowShow = !$scope.isNowShow;
     }
 });
 
@@ -127,9 +129,11 @@ app.controller("themDetailController",function($scope,$http,$routeParams){
     }).then(function(data){
         $scope.storyExtra = data.data;
     });
-    //返回上一级目录
-    $scope.back = function(){
-        history.go(-1);
+    $scope.isBeforeShow = true;
+    $scope.isNowShow = false;
+    $scope.goodClick = function(){
+        $scope.isBeforeShow = !$scope.isBeforeShow;
+        $scope.isNowShow = !$scope.isNowShow;
     }
 });
 
@@ -165,10 +169,6 @@ app.controller("commentController",function($scope,$http,$routeParams,$location)
     $scope.isCommentShortToggle = true;
     $scope.commentShortToggle = function(){
         $scope.isCommentShortToggle = !$scope.isCommentShortToggle;
-    };
-    //返回上一级
-    $scope.back = function(){
-        history.go(-1);
     };
     //获取评论对应文章id
     $scope.commentId = $location.path().substring(9);
@@ -235,6 +235,19 @@ app.filter("attachImageUr",function(){
 app.component("lunbo",{
     templateUrl:'component/lunbo.html',
     controller:'lunboController'
+});
+
+//返回父级按钮指令封装
+app.directive("back",function(){
+   return{
+       restrict: "E",
+       link:function(scope,element,attr){
+           var e = $(element);
+           e.click(function(){
+               history.go(-1);
+           });
+       }
+   }
 });
 
 //组件复用 侧边栏sidebar组件
