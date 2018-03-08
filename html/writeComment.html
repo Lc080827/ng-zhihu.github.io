@@ -1,0 +1,9 @@
+<div id="writeComm">
+    <div class="writeComm-head">写点评论</div>
+    <div class="writeComm-content">
+        <form class="writeComm-form" name="writeForm">
+            <textarea class="text" ng-model="text" ng-class="{'error':writeForm.text.$error.required}" rows="29" placeholder="不友善言论会被删除，深度讨论会被优先展示" name="text" required></textarea>
+            <input class="submit" type="button" ng-click="submit()" value="提交评论" ng-disabled="writeForm.text.$error.required" />
+        </form>
+    </div>
+</div>

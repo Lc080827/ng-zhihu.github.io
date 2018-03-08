@@ -1,5 +1,5 @@
 var app = angular.module('myapp',['ngRoute','ngSanitize','ngAnimate']);
-app.config(['$routeProvider',function($routeProvider){
+app.config(['$routeProvider','$locationProvider',function($routeProvider){
     $routeProvider
     .when('/',{
         templateUrl:'html/homepage.html',
@@ -16,6 +16,9 @@ app.config(['$routeProvider',function($routeProvider){
     }).when("/comment/:id",{
         templateUrl:'html/comment.html',
         controller:'commentController'
+    }).when("/writeComment/:id",{
+        templateUrl:'html/writeComment.html',
+        controller:'writeCommentController'
     });
 }]);
 
@@ -131,7 +134,7 @@ app.controller("themDetailController",function($scope,$http,$routeParams){
 });
 
 //评论控制器comment
-app.controller("commentController",function($scope,$http,$routeParams){
+app.controller("commentController",function($scope,$http,$routeParams,$location){
     //总评论数获取
     $http({
         method:'GET',
@@ -145,7 +148,6 @@ app.controller("commentController",function($scope,$http,$routeParams){
        url:'http://192.168.10.141:8888/news-at/api/4/story/'+$routeParams.id+'/long-comments'
     }).then(function(data){
         $scope.longComment = data.data.comments;
-        console.log($scope.longComment.length);
     });
     //评论显示与隐藏
     $scope.isCommentLongToggle = true;
@@ -158,7 +160,6 @@ app.controller("commentController",function($scope,$http,$routeParams){
         url:'http://192.168.10.141:8888/news-at/api/4/story/'+$routeParams.id+'/short-comments'
     }).then(function (data) {
         $scope.shortComment = data.data.comments;
-        console.log($scope.shortComment.length);
     });
     //评论显示与隐藏
     $scope.isCommentShortToggle = true;
@@ -168,6 +169,37 @@ app.controller("commentController",function($scope,$http,$routeParams){
     //返回上一级
     $scope.back = function(){
         history.go(-1);
+    };
+    //获取评论对应文章id
+    $scope.commentId = $location.path().substring(9);
+});
+
+//写评论控制器
+app.controller("writeCommentController",function($scope,$http){
+    $scope.submit = function(){
+        $http({
+            method:'GET',
+            url:'',
+            params:{
+                text:$scope.text
+            }
+        }).then(function(data){
+            swal('提交评论成功',{
+                icon: "success",
+                buttons: false,
+                timer:2000,
+            });
+            $scope.text="";
+            setTimeout(function(){
+                history.go(-1);
+            },2000);
+        },function(){
+            swal('系统错误，请稍后再试！',{
+                icon: "error",
+                buttons: false,
+                timer:2000,
+            });
+        });
     };
 });
 
