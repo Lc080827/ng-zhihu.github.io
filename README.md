@@ -9,7 +9,7 @@
 *   bxSlider+angular-animate+ng-infinite-scroll+sweetAlert(滑动效果、动画效果、下拉刷新、alert弹出效果) ...
 
 ## 效果截图
-[![首页效果截图]](https://github.com/Lc080827/ng-zhihu.github.io/blob/master/images/QQ%E5%9B%BE%E7%89%8720180312105003.png)
+![首页效果截图](https://github.com/Lc080827/ng-zhihu.github.io/blob/master/images/QQ%E5%9B%BE%E7%89%8720180312105003.png)
 
 ## 知乎api数据分析
 *   [知乎api数据分析](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)
@@ -17,6 +17,7 @@
 # 问题解决
 ## 知乎api数据跨域解决
 *   nginx反向代理：因知乎数据不能直接在本地反问（存在跨域问题）,也不能通过jsonp去请求,于是需要通过反向代理处理
+```nginx配置
 server {
     listen       8888; //端口
     server_name  192.168.10.141; //自己的ip地址
@@ -28,6 +29,7 @@ server {
 	    add_header 'Access-Control-Allow-Methods' 'GET';
 	}
 }
+```
 *   192.168.10.141:8888/news-at/****  ===  http://news-at.zhihu.com/***
 
 ## 图片防盗链问题
