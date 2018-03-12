@@ -19,7 +19,28 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider){
     }).when("/writeComment/:id",{
         templateUrl:'html/writeComment.html',
         controller:'writeCommentController'
-    });
+    }).otherwise({redirectTo:'/'});
+}]);
+
+//拦截器配置
+app.config(["$httpProvider",function($httpProvider){
+    $httpProvider
+        .interceptors.push('myInterceptor');
+}]);
+
+//首页拦截器loading效果
+app.factory('myInterceptor', ["$rootScope", function ($rootScope) {
+    var timestampMarker = {
+        request: function (config) {
+            $rootScope.loading = true;
+            return config;
+        },
+        response: function (response) {
+            $rootScope.loading = false;
+            return response;
+        }
+    };
+    return timestampMarker;
 }]);
 
 //主页面控制器 homepage

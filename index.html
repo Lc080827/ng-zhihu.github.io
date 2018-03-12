@@ -20,6 +20,10 @@
     <!--动画--><script type="text/javascript" src="js/angular-animate.min.js" charset="utf-8"></script>
 </head>
 <body>
-    <div ng-view=""></div>
+<!--loading效果实现-->
+<div id="mask-loading" class="mask-loading" ng-if="loading">
+    <div class="loading-icon"></div>
+</div>
+<div ng-view=""></div>
 </body>
 </html>
