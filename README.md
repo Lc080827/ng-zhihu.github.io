@@ -10,6 +10,11 @@
 
 ## 效果截图
 ![首页效果截图](https://github.com/Lc080827/ng-zhihu.github.io/blob/master/images/QQ%E5%9B%BE%E7%89%8720180312105003.png)
+![首页效果截图](https://github.com/Lc080827/ng-zhihu.github.io/blob/master/images/daohang_github.png)
+![首页效果截图](https://github.com/Lc080827/ng-zhihu.github.io/blob/master/images/list_github.png)
+![首页效果截图](https://github.com/Lc080827/ng-zhihu.github.io/blob/master/images/comment_github.png)
+![首页效果截图](https://github.com/Lc080827/ng-zhihu.github.io/blob/master/images/commentDetail_github.png)
+
 
 ## 知乎api数据分析
 *   [知乎api数据分析](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)
@@ -29,8 +34,8 @@ server {
 	    add_header 'Access-Control-Allow-Methods' 'GET';
 	}
 }
+最后代理结果就是：   192.168.10.141:8888/news-at/****  ===  http://news-at.zhihu.com/***
 ```
-*   192.168.10.141:8888/news-at/****  ===  http://news-at.zhihu.com/***
 
 ## 图片防盗链问题
 *   知乎API返回的数据中的图片都是存储在知乎服务器上的url地址，直接请求会返回403，所以需要进行一些处理，这里我采用了[yatessss](http://www.yatessss.com/2016/07/08/%E4%BD%BF%E7%94%A8vue%E5%AE%8C%E6%88%90%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5web%E7%89%88.html)同学在使用vue完成知乎日报web版的解决方案，使用Images.weserv.nl进行缓存图片，并在需要使用图片url的地方进行相应的替换。
