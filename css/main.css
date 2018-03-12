@@ -110,6 +110,11 @@ body{
     width:1.0rem;
     height:0.9rem;
 }
+.homeContent ul .more{
+    font-size: 0.25rem;
+    text-align: center;
+    padding: 0.1rem;
+}
 /*detail详细页样式*/
 .home-detail .detail-header .detail-header-img img{
     width:100%;

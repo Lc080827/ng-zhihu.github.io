@@ -1,4 +1,4 @@
-var app = angular.module('myapp',['ngRoute','ngSanitize','ngAnimate']);
+var app = angular.module('myapp',['ngRoute','ngSanitize','ngAnimate','infinite-scroll']);
 app.config(['$routeProvider','$locationProvider',function($routeProvider){
     $routeProvider
     .when('/',{
@@ -23,28 +23,25 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider){
 }]);
 
 //主页面控制器 homepage
-app.controller('homepageController',function($scope,$http){
+app.controller('homepageController',function($scope,$http,Reddit){
     $http({
        method:'GET',
        url:'http://192.168.10.141:8888/news-at/api/4/news/latest',
     }).then(function(data){
         $scope.newsList = data.data.stories;
-        console.log($scope.newsList);
+        // console.log($scope.newsList);
     });
-    //下拉刷新数据 采用infinite-scroll插件
-    // $scope.Reddit = new Reddit();
     $scope.isShowSidebar = false;
     $scope.toggleSidebar = function(){
         $scope.isShowSidebar = !$scope.isShowSidebar;
         //遮罩层弹出使body样式为fixed 禁止下拉框
         window.document.body.style.position = 'fixed';
         window.document.body.style.width = '100%';
-    }
+    };
         $scope.hideSidebar = function(){
         $scope.isShowSidebar = !$scope.isShowSidebar;
-        console.log($scope.isShowSidebar);
         window.document.body.style.position = 'relative';
-    }
+    };
     //主题日报获取
     $http({
         method:'GET',
@@ -52,6 +49,42 @@ app.controller('homepageController',function($scope,$http){
     }).then(function(data){
         $scope.themsList = data.data.others;
     });
+    //实例化Reddit
+    $scope.reddit = new Reddit();
+});
+
+//下拉刷新 采用ng-infinite-scroll 插件
+app.factory('Reddit', function($http) {;
+    var Reddit = function() {
+        this.beforeNewList = [];
+        this.busy = false;
+        //获取当前日期 转化为yyyy-MM-dd
+        var date =new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate()+1;
+        month = month < 10 ? '0' + month : month; // 格式化月份，小于10前置0
+        day = day < 10 ? '0' + day : day; // 格式化日期，小于10前置0;
+        this.before = year + month + day;
+    };
+
+    Reddit.prototype.nextPage = function() {
+        if (this.busy) return;
+        this.busy = true;
+        var url = "http://192.168.10.141:8888/news-at/api/4/news/before/"+this.before;
+        // console.log(url);
+            $http.get(url).success(function(data){
+                var beforeNewList = data.stories;
+                for(var j=0;j<beforeNewList.length;j++){
+                    this.beforeNewList.push(beforeNewList[j]);
+                }
+               this.before=data.date;
+               this.busy = false;
+            }.bind(this));
+
+
+    };
+    return Reddit;
 });
 
 //轮播图控制器
@@ -61,7 +94,6 @@ app.controller("lunboController",function($scope,$http){
       url:'http://192.168.10.141:8888/news-at/api/4/news/latest'
    }).then(function(data){
        $scope.picList = data.data.top_stories;
-       console.log($scope.picList);
    });
    //图片轮播插件参数配置
     setTimeout(function(){$('#sliderBox').bxSlider({
@@ -83,7 +115,6 @@ app.controller("detailController",function($scope,$http,$routeParams){
         url:'http://192.168.10.141:8888/news-at/api/4/news/'+$routeParams.id
     }).then(function(data){
          $scope.detail = data.data;
-         console.log($scope.detail);
     });
     //获取评论数以及赞的数量url地址
     $http({
@@ -120,7 +151,6 @@ app.controller("themDetailController",function($scope,$http,$routeParams){
     }).then(function(data){
         $scope.themDetail = data.data;
         $scope.recommenders = data.data.recommenders;
-        console.log($scope.recommenders)
     });
     //获取评论数以及赞的数量url地址
     $http({

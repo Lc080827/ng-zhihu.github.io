@@ -50,14 +50,17 @@
         </div>
     <!--侧边栏展示结束-->
 </div>
+<!--轮播图开始-->
 <lunbo></lunbo>
+<!--新闻列表页开始-->
 <div class="homeContent">
     <ul>
-        <li>
-            <a ng-repeat="news in newsList" href="#/detail/{{news.id}}">
+        <li infinite-scroll='reddit.nextPage()' infinite-scroll-disabled='reddit.busy' infinite-scroll-distance='1'>
+            <a ng-repeat="news in reddit.beforeNewList" href="#/detail/{{news.id}}">
                 <span ng-bind="news.title"></span>
                 <div><img src="{{news.images[0] | attachImageUr}}" alt=""></div>
             </a>
         </li>
+        <div ng-show='reddit.busy' class="more"><p>正在加载更多数据...</p></div>
     </ul>
 </div>
