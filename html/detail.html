@@ -7,7 +7,7 @@
     <div class="detail-footer">
         <ul class="menu-wrapper">
             <li class="menu-item"><back><img src="images/back.png" /></back></li>
-            <li class="menu-item"><img src="images/down.png" /></li>
+            <li class="menu-item"><img ng-click="nextDetail()" src="images/down.png" /></li>
             <li class="menu-item" ng-show="isBeforeShow">
                 <img src="images/good.png" ng-click="goodClick()" />
                 <span>{{storyExtra.popularity }}</span>

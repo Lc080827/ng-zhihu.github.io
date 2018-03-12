@@ -46,12 +46,23 @@ app.factory('myInterceptor', ["$rootScope", function ($rootScope) {
 //主页面控制器 homepage
 app.controller('homepageController',function($scope,$http,Reddit){
     $http({
-       method:'GET',
-       url:'http://192.168.10.141:8888/news-at/api/4/news/latest',
+        method:'GET',
+        url:'http://192.168.10.141:8888/news-at/api/4/news/latest',
     }).then(function(data){
         $scope.newsList = data.data.stories;
-        // console.log($scope.newsList);
+        console.log($scope.newsList);
     });
+    /*刷新*/
+    // $scope.doRefresh = function() {
+    //     $http.get('http://192.168.10.141:8888/news-at/api/4/news/latest')
+    //         .success(function(data) {
+    //             $scope.newsList = data.data.stories;
+    //         })
+    //         .finally(function() {
+    //             // 停止广播ion-refresher
+    //             $scope.$broadcast('scroll.refreshComplete');
+    //         });
+    // };
     $scope.isShowSidebar = false;
     $scope.toggleSidebar = function(){
         $scope.isShowSidebar = !$scope.isShowSidebar;
@@ -74,7 +85,7 @@ app.controller('homepageController',function($scope,$http,Reddit){
     $scope.reddit = new Reddit();
 });
 
-//下拉刷新 采用ng-infinite-scroll 插件
+//上来加载更多数据 采用ng-infinite-scroll 插件
 app.factory('Reddit', function($http) {;
     var Reddit = function() {
         this.beforeNewList = [];
@@ -102,8 +113,6 @@ app.factory('Reddit', function($http) {;
                this.before=data.date;
                this.busy = false;
             }.bind(this));
-
-
     };
     return Reddit;
 });
@@ -149,7 +158,7 @@ app.controller("detailController",function($scope,$http,$routeParams){
     $scope.goodClick = function(){
         $scope.isBeforeShow = !$scope.isBeforeShow;
         $scope.isNowShow = !$scope.isNowShow;
-    }
+    };
 });
 
 //主题日报新闻列表页

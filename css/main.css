@@ -72,11 +72,13 @@ body{
     background:0 0;
     z-index:9999;
 }
+/*上拉加载*/
+
 /*头部样式*/
 .header{
     display: flex;
 }
-.header .list-header{
+.header .zh-list-header{
     top: 0;
     z-index: 4;
     height: 50px;
@@ -91,26 +93,26 @@ body{
     -webkit-flex-direction: row;
     flex-direction: row;
 }
-.header .list-header .header-icon{
+.header .zh-list-header .header-icon{
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     flex: 1;
     text-align: center;
 }
-.header .list-header img{
+.header .zh-list-header img{
     margin-top: 5px;
 }
-.header .list-header .header-content{
+.header .zh-list-header .header-content{
     -webkit-box-flex: 6;
     -webkit-flex: 6;
     flex: 6;
     padding-left: .05rem;
 }
-.header .list-header .header-content p a{
+.header .zh-list-header .header-content p a{
     color:#FFF;
     font-size: 0.25rem;
 }
-.header .list-header .changeCol{
+.header .zh-list-header .changeCol{
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     flex: 1;

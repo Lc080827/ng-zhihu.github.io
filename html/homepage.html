@@ -1,5 +1,5 @@
 <div class="header">
-    <div class="list-header">
+    <div class="zh-list-header">
         <div class="header-icon"><img ng-click="toggleSidebar()" src="images/listPic.png" /></div>
         <div class="header-content"><p><a href="#/">首页</a></p></div>
         <div class="changeCol"><img src="images/changeCol.png" /></div>
@@ -54,6 +54,9 @@
 <lunbo></lunbo>
 <!--新闻列表页开始-->
 <div class="homeContent">
+        <!--<ion-content>-->
+            <!--<ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()" distance="1%"></ion-refresher>-->
+        <!--</ion-content>-->
     <ul>
         <li infinite-scroll='reddit.nextPage()' infinite-scroll-disabled='reddit.busy' infinite-scroll-distance='1'>
             <a ng-repeat="news in reddit.beforeNewList" href="#/detail/{{news.id}}">
