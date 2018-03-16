@@ -1,0 +1,18 @@
+<div id="favoriteListPage">
+    <div class="themHeader">
+        <div class="them-header-bar"><img src="images/listPic.png" /></div>
+        <div class="them-header-title">我的收藏</div>
+    </div>
+
+    <!--近期收藏-->
+    <div class="favoriteContent">
+        <ul>
+            <li>
+                <a ng-repeat="them in favoriteList" href="{{them.url}}">
+                    <span ng-bind="them.title"></span>
+                    <div><img src="{{them.image | attachImageUr}}" alt=""></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

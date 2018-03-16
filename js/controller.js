@@ -19,6 +19,9 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider){
     }).when("/writeComment/:id",{
         templateUrl:'html/writeComment.html',
         controller:'writeCommentController'
+    }).when("/favorite",{
+        templateUrl:'html/favorite.html',
+        controller:'favoriteController'
     }).otherwise({redirectTo:'/'});
 }]);
 
@@ -43,14 +46,24 @@ app.factory('myInterceptor', ["$rootScope", function ($rootScope) {
     return timestampMarker;
 }]);
 
+//自定义图片缓存过滤器
+app.filter("attachImageUr",function(){
+    // 修改图片链接 直接访问知乎图片显示403 需要缓存处理
+    return function(srcUrl){
+        //防止变量为空的情况
+        if( srcUrl !== undefined ){
+            return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
+        }
+    }
+});
+
 //主页面控制器 homepage
 app.controller('homepageController',function($scope,$http,Reddit){
     $http({
         method:'GET',
-        url:'http://192.168.10.141:8888/news-at/api/4/news/latest',
+        url:'http://192.168.10.142:8888/news-at/api/4/news/latest',
     }).then(function(data){
         $scope.newsList = data.data.stories;
-        console.log($scope.newsList);
     });
     /*刷新*/
     // $scope.doRefresh = function() {
@@ -77,7 +90,7 @@ app.controller('homepageController',function($scope,$http,Reddit){
     //主题日报获取
     $http({
         method:'GET',
-        url:'http://192.168.10.141:8888/news-at/api/4/themes'
+        url:'http://192.168.10.142:8888/news-at/api/4/themes'
     }).then(function(data){
         $scope.themsList = data.data.others;
     });
@@ -85,7 +98,7 @@ app.controller('homepageController',function($scope,$http,Reddit){
     $scope.reddit = new Reddit();
 });
 
-//上来加载更多数据 采用ng-infinite-scroll 插件
+//上拉加载更多数据 采用ng-infinite-scroll 插件
 app.factory('Reddit', function($http) {;
     var Reddit = function() {
         this.beforeNewList = [];
@@ -103,7 +116,7 @@ app.factory('Reddit', function($http) {;
     Reddit.prototype.nextPage = function() {
         if (this.busy) return;
         this.busy = true;
-        var url = "http://192.168.10.141:8888/news-at/api/4/news/before/"+this.before;
+        var url = "http://192.168.10.142:8888/news-at/api/4/news/before/"+this.before;
         // console.log(url);
             $http.get(url).success(function(data){
                 var beforeNewList = data.stories;
@@ -121,9 +134,10 @@ app.factory('Reddit', function($http) {;
 app.controller("lunboController",function($scope,$http){
    $http({
       method:'GET',
-      url:'http://192.168.10.141:8888/news-at/api/4/news/latest'
+      url:'http://192.168.10.142:8888/news-at/api/4/news/latest'
    }).then(function(data){
        $scope.picList = data.data.top_stories;
+       console.log($scope.picList);
    });
    //图片轮播插件参数配置
     setTimeout(function(){$('#sliderBox').bxSlider({
@@ -138,18 +152,73 @@ app.controller("lunboController",function($scope,$http){
     });},500)
 });
 
+/**
+ * @AuthorHTL localStorage
+ * @DateTime  2018-03-15T14:27:50+0800
+ * @param     {[type]}
+ */
+// app.factory('locals',['$window',function($window){
+//       return{        //存储单个属性
+//         set :function(key,value){
+//           $window.localStorage[key]=value;
+//         },        //读取单个属性
+//         get:function(key,defaultValue){
+//           return  $window.localStorage[key] || defaultValue;
+//         },        //存储对象，以JSON格式存储
+//         setObject:function(key,value){
+//           $window.localStorage[key]=JSON.stringify(value);
+//         },        //读取对象
+//         getObject: function (key) {
+//           return JSON.parse($window.localStorage[key] || '{}');
+//         }
+
+//       }
+//   }]);
+
 //新闻详细页控制器
 app.controller("detailController",function($scope,$http,$routeParams){
     $http({
         method:'GET',
-        url:'http://192.168.10.141:8888/news-at/api/4/news/'+$routeParams.id
+        url:'http://192.168.10.142:8888/news-at/api/4/news/'+$routeParams.id
     }).then(function(data){
-         $scope.detail = data.data;
+        $scope.detail = data.data;
+
+        //设定初始收藏class为false
+        $scope.isShowImg = false;
+        //判断localStorage是否存在数据
+        var favorite = JSON.parse(localStorage.getItem("favorite"));
+        //定义一个存储value的数组
+        var favoriteArr=[];
+        //存在则把数据push到favoriteArr数组中
+        if(favorite){
+            favoriteArr=favorite;
+        };
+        $scope.isFavorite = function(){
+            //点击按钮将class值显示为true
+            $scope.isShowImg = !$scope.isShowImg;
+            //当class值为true是 向localStorage添加数据
+            if($scope.isShowImg == true){
+                //初始化数组元素
+                var favorite1 = {};
+                favorite1.title = data.data.title;
+                favorite1.image = data.data.image;
+                favorite1.url = data.data.share_url; 
+                favorite1.id = data.data.id;
+                favoriteArr.push(favorite1);         
+                localStorage.setItem("favorite",JSON.stringify(favoriteArr)); 
+            }else{
+                //当class值为false时 从localStorage移除该对象
+                var favorite = JSON.parse(localStorage.getItem("favorite"));
+                console.log(favorite);
+                favorite.splice(0,1);
+                localStorage.setItem("favorite",JSON.stringify(favorite));
+            }
+        }; 
     });
     //获取评论数以及赞的数量url地址
     $http({
        method:'GET',
-       url:'http://192.168.10.141:8888/news-at/api/4/story-extra/'+$routeParams.id
+       url:'http://192.168.10.142:8888/news-at/api/4/story-extra/'+$routeParams.id
     }).then(function(data){
         $scope.storyExtra = data.data;
     });
@@ -161,11 +230,25 @@ app.controller("detailController",function($scope,$http,$routeParams){
     };
 });
 
+/**
+ * @AuthorHTL 获取localStorage值
+ * @DateTime  2018-03-15T14:47:30+0800
+ * @param     {[type]}
+ * @param     {[type]}
+ * @return    {[type]}
+ */
+app.controller('favoriteController', function($scope){
+    var ss = localStorage.getItem("favorite");
+    $scope.favoriteList = JSON.parse(ss);
+    console.log($scope.favoriteList);
+
+});
+
 //主题日报新闻列表页
 app.controller("themController",function($scope,$http,$routeParams){
     $http({
        method:'GET',
-       url:'http://192.168.10.141:8888/news-at/api/4/theme/'+$routeParams.id
+       url:'http://192.168.10.142:8888/news-at/api/4/theme/'+$routeParams.id
     }).then(function(data){
         $scope.themList = data.data.stories;
         $scope.themHeader = data.data;
@@ -177,7 +260,7 @@ app.controller("themController",function($scope,$http,$routeParams){
 app.controller("themDetailController",function($scope,$http,$routeParams){
     $http({
         method:'GET',
-        url:'http://192.168.10.141:8888/news-at/api/4/news/'+$routeParams.id
+        url:'http://192.168.10.142:8888/news-at/api/4/news/'+$routeParams.id
     }).then(function(data){
         $scope.themDetail = data.data;
         $scope.recommenders = data.data.recommenders;
@@ -185,7 +268,7 @@ app.controller("themDetailController",function($scope,$http,$routeParams){
     //获取评论数以及赞的数量url地址
     $http({
         method:'GET',
-        url:'http://192.168.10.141:8888/news-at/api/4/story-extra/'+$routeParams.id
+        url:'http://192.168.10.142:8888/news-at/api/4/story-extra/'+$routeParams.id
     }).then(function(data){
         $scope.storyExtra = data.data;
     });
@@ -202,7 +285,7 @@ app.controller("commentController",function($scope,$http,$routeParams,$location)
     //总评论数获取
     $http({
         method:'GET',
-        url:'http://192.168.10.141:8888/news-at/api/4/story-extra/'+$routeParams.id
+        url:'http://192.168.10.142:8888/news-at/api/4/story-extra/'+$routeParams.id
     }).then(function(data){
         $scope.storyExtra = data.data;
     });
@@ -221,7 +304,7 @@ app.controller("commentController",function($scope,$http,$routeParams,$location)
     //短评获取
     $http({
         method:'GET',
-        url:'http://192.168.10.141:8888/news-at/api/4/story/'+$routeParams.id+'/short-comments'
+        url:'http://192.168.10.142:8888/news-at/api/4/story/'+$routeParams.id+'/short-comments'
     }).then(function (data) {
         $scope.shortComment = data.data.comments;
     });
@@ -279,17 +362,6 @@ app.controller("writeCommentController",function($scope,$http){
 //         $scope.themsList = data.data.others;
 //     });
 // });
-
-//自定义图片缓存过滤器
-app.filter("attachImageUr",function(){
-    // 修改图片链接 直接访问知乎图片显示403 需要缓存处理
-    return function(srcUrl){
-        //防止变量为空的情况
-        if( srcUrl !== undefined ){
-            return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
-        }
-    }
-});
 
 //组件复用 图片轮播组件
 app.component("lunbo",{
