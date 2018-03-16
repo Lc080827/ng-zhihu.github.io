@@ -61,7 +61,7 @@ app.filter("attachImageUr",function(){
 app.controller('homepageController',function($scope,$http,Reddit){
     $http({
         method:'GET',
-        url:'http://192.168.10.142:8888/news-at/api/4/news/latest',
+        url:'http://112.74.180.53:8080/news-at/api/4/news/latest',
     }).then(function(data){
         $scope.newsList = data.data.stories;
     });
@@ -90,7 +90,7 @@ app.controller('homepageController',function($scope,$http,Reddit){
     //主题日报获取
     $http({
         method:'GET',
-        url:'http://192.168.10.142:8888/news-at/api/4/themes'
+        url:'http://112.74.180.53:8080/news-at/api/4/themes'
     }).then(function(data){
         $scope.themsList = data.data.others;
     });
@@ -116,7 +116,7 @@ app.factory('Reddit', function($http) {;
     Reddit.prototype.nextPage = function() {
         if (this.busy) return;
         this.busy = true;
-        var url = "http://192.168.10.142:8888/news-at/api/4/news/before/"+this.before;
+        var url = "http://112.74.180.53:8080/news-at/api/4/news/before/"+this.before;
         // console.log(url);
             $http.get(url).success(function(data){
                 var beforeNewList = data.stories;
@@ -134,7 +134,7 @@ app.factory('Reddit', function($http) {;
 app.controller("lunboController",function($scope,$http){
    $http({
       method:'GET',
-      url:'http://192.168.10.142:8888/news-at/api/4/news/latest'
+      url:'http://112.74.180.53:8080/news-at/api/4/news/latest'
    }).then(function(data){
        $scope.picList = data.data.top_stories;
        console.log($scope.picList);
@@ -179,12 +179,12 @@ app.controller("lunboController",function($scope,$http){
 app.controller("detailController",function($scope,$http,$routeParams){
     $http({
         method:'GET',
-        url:'http://192.168.10.142:8888/news-at/api/4/news/'+$routeParams.id
+        url:'http://112.74.180.53:8080/news-at/api/4/news/'+$routeParams.id
     }).then(function(data){
         $scope.detail = data.data;
 
         //设定初始收藏class为false
-        $scope.isShowImg = false;
+        $scope.myFavorite = false;
         //判断localStorage是否存在数据
         var favorite = JSON.parse(localStorage.getItem("favorite"));
         //定义一个存储value的数组
@@ -195,22 +195,26 @@ app.controller("detailController",function($scope,$http,$routeParams){
         };
         $scope.isFavorite = function(){
             //点击按钮将class值显示为true
-            $scope.isShowImg = !$scope.isShowImg;
+            $scope.myFavorite = !$scope.myFavorite;
             //当class值为true是 向localStorage添加数据
-            if($scope.isShowImg == true){
+            if($scope.myFavorite == true){
                 //初始化数组元素
                 var favorite1 = {};
                 favorite1.title = data.data.title;
                 favorite1.image = data.data.image;
                 favorite1.url = data.data.share_url; 
-                favorite1.id = data.data.id;
-                favoriteArr.push(favorite1);         
+                favorite1.id = data.data.id;  
+                favoriteArr.push(favorite1);   
                 localStorage.setItem("favorite",JSON.stringify(favoriteArr)); 
             }else{
                 //当class值为false时 从localStorage移除该对象
                 var favorite = JSON.parse(localStorage.getItem("favorite"));
                 console.log(favorite);
-                favorite.splice(0,1);
+                for(var i=0;i<favorite.length;i++){
+                    if(favorite[i].id == $routeParams.id){
+                        favorite.splice(i,i+1);
+                    }
+                }
                 localStorage.setItem("favorite",JSON.stringify(favorite));
             }
         }; 
@@ -218,7 +222,7 @@ app.controller("detailController",function($scope,$http,$routeParams){
     //获取评论数以及赞的数量url地址
     $http({
        method:'GET',
-       url:'http://192.168.10.142:8888/news-at/api/4/story-extra/'+$routeParams.id
+       url:'http://112.74.180.53:8080/news-at/api/4/story-extra/'+$routeParams.id
     }).then(function(data){
         $scope.storyExtra = data.data;
     });
@@ -248,7 +252,7 @@ app.controller('favoriteController', function($scope){
 app.controller("themController",function($scope,$http,$routeParams){
     $http({
        method:'GET',
-       url:'http://192.168.10.142:8888/news-at/api/4/theme/'+$routeParams.id
+       url:'http://112.74.180.53:8080/news-at/api/4/theme/'+$routeParams.id
     }).then(function(data){
         $scope.themList = data.data.stories;
         $scope.themHeader = data.data;
@@ -260,7 +264,7 @@ app.controller("themController",function($scope,$http,$routeParams){
 app.controller("themDetailController",function($scope,$http,$routeParams){
     $http({
         method:'GET',
-        url:'http://192.168.10.142:8888/news-at/api/4/news/'+$routeParams.id
+        url:'http://112.74.180.53:8080/news-at/api/4/news/'+$routeParams.id
     }).then(function(data){
         $scope.themDetail = data.data;
         $scope.recommenders = data.data.recommenders;
@@ -268,7 +272,7 @@ app.controller("themDetailController",function($scope,$http,$routeParams){
     //获取评论数以及赞的数量url地址
     $http({
         method:'GET',
-        url:'http://192.168.10.142:8888/news-at/api/4/story-extra/'+$routeParams.id
+        url:'http://112.74.180.53:8080/news-at/api/4/story-extra/'+$routeParams.id
     }).then(function(data){
         $scope.storyExtra = data.data;
     });
@@ -285,14 +289,14 @@ app.controller("commentController",function($scope,$http,$routeParams,$location)
     //总评论数获取
     $http({
         method:'GET',
-        url:'http://192.168.10.142:8888/news-at/api/4/story-extra/'+$routeParams.id
+        url:'http://112.74.180.53:8080/news-at/api/4/story-extra/'+$routeParams.id
     }).then(function(data){
         $scope.storyExtra = data.data;
     });
     //长评论
     $http({
        method:'GET',
-       url:'http://192.168.10.141:8888/news-at/api/4/story/'+$routeParams.id+'/long-comments'
+       url:'http://112.74.180.53:8080/news-at/api/4/story/'+$routeParams.id+'/long-comments'
     }).then(function(data){
         $scope.longComment = data.data.comments;
     });
@@ -304,7 +308,7 @@ app.controller("commentController",function($scope,$http,$routeParams,$location)
     //短评获取
     $http({
         method:'GET',
-        url:'http://192.168.10.142:8888/news-at/api/4/story/'+$routeParams.id+'/short-comments'
+        url:'http://112.74.180.53:8080/news-at/api/4/story/'+$routeParams.id+'/short-comments'
     }).then(function (data) {
         $scope.shortComment = data.data.comments;
     });
