@@ -8,6 +8,9 @@
 ## 用到的插件
 *   bxSlider+angular-animate+ng-infinite-scroll+sweetAlert(滑动效果、动画效果、下拉刷新、alert弹出效果) ...
 
+## 访问地址
+*	http://yu.sulishibaobei.com:8080/ng-zhihu/#/
+
 ## 效果截图
 ![首页效果截图](https://github.com/Lc080827/ng-zhihu.github.io/blob/master/images/QQ%E5%9B%BE%E7%89%8720180312105003.png)
 ![首页效果截图](https://github.com/Lc080827/ng-zhihu.github.io/blob/master/images/daohang_github.png)
