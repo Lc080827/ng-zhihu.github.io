@@ -22,6 +22,9 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider){
     }).when("/favorite",{
         templateUrl:'html/favorite.html',
         controller:'favoriteController'
+    }).when("/statistic",{
+        templateUrl:'html/statistic.html',
+        controller:'statistiController'
     }).otherwise({redirectTo:'/'});
 }]);
 
@@ -349,6 +352,55 @@ app.controller("writeCommentController",function($scope,$http){
         });
     };
 });
+
+// 访问统计控制器
+app.controller('statistiController', ['$scope', function($scope){
+    // 绘制图表。
+    var dom = document.getElementById("echarts-main");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    option = {
+        title : {
+            text: '用户访问地区统计echarts图',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['广东省','湖南省','北京','江西省','湖北省']
+        },
+        series : [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius : '55%',
+                center: ['50%', '60%'],
+                data:[
+                    {value:1548, name:'广东省'},
+                    {value:310, name:'湖南省'},
+                    {value:234, name:'北京'},
+                    {value:135, name:'江西省'},
+                    {value:21, name:'湖北省'}
+                ],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+}]);
 
 // app.controller("sidebarController",function($scope,$http){
 // //侧边栏显示与隐藏
