@@ -110,7 +110,8 @@ app.factory('Reddit', function($http) {;
         var date =new Date();
         var year = date.getFullYear();
         var month = date.getMonth() + 1;
-        var day = date.getDate()+1;
+        date.setDate(date.getDate()+1);
+        var day = date.getDate();
         month = month < 10 ? '0' + month : month; // 格式化月份，小于10前置0
         day = day < 10 ? '0' + day : day; // 格式化日期，小于10前置0;
         this.before = year + month + day;

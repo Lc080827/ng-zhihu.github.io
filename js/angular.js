@@ -23,7 +23,7 @@
  * If fewer arguments are specified than necessary for interpolation, the extra
  * interpolation markers will be preserved in the final string.
  *
- * Since data will be parsed statically during a build step, some restrictions
+ * Since data will be parsed statically during a dist step, some restrictions
  * are applied with respect to how minErr instances are created and called.
  * Instances should have names of the form namespaceMinErr for a minErr created
  * using minErr('namespace') . Error codes, namespaces and template strings
@@ -10378,7 +10378,7 @@ function $HttpProvider() {
 
     /**
      * Interceptors stored in reverse order. Inner interceptors before outer interceptors.
-     * The reversal is needed so that we can build up the interception chain around the
+     * The reversal is needed so that we can dist up the interception chain around the
      * server request.
      */
     var reversedInterceptors = [];
@@ -14073,7 +14073,7 @@ ASTCompiler.prototype = {
     this.stage = 'main';
     this.recurse(ast);
     var fnString =
-      // The build and minification steps remove the string "use strict" from the code, but this is done using a regex.
+      // The dist and minification steps remove the string "use strict" from the code, but this is done using a regex.
       // This is a workaround for this until we do a better job at only removing the prefix only when we should.
       '"' + this.USE + ' ' + this.STRICT + '";\n' +
       this.filterPrefix() +
