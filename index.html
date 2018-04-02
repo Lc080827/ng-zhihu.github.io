@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="myapp">
+
 <head>
     <meta charset="UTF-8">
     <title>用angularJs仿知乎app</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <!--设置IE浏览器渲染模式为最新--><meta http-equiv="X-UA-Compatible" content="IE=Edge，chrome=1">
+    <!--设置IE浏览器渲染模式为最新-->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge，chrome=1">
     <link href="css/jquery.bxslider.css" rel="stylesheet" />
     <!--<link href="css/ionic.min.css" rel="stylesheet" />-->
     <link href="css/main.css" rel="stylesheet" />
+    <link href='css/dialog.css' rel='stylesheet' />
     <!--自适应rem设置-->
     <script type="text/javascript" src="js/main.js" charset="utf-8"></script>
     <script type="text/javascript" src="js/jquery.min.js" charset="utf-8"></script>
@@ -16,18 +19,23 @@
     <script type="text/javascript" src="js/angular-santize.js" charset="utf-8"></script>
     <script type="text/javascript" src="js/controller.js" charset="utf-8"></script>
     <script type="text/javascript" src="js/sweetAlert.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/dialog.js" charset="utf-8"></script>
     <script type="text/javascript" src="js/jquery.bxslider.js" charset="utf-8"></script>
     <script type="text/javascript" src="js/ng-infinite-scroll.min.js" charset="utf-8"></script>
-    <!--动画--><script type="text/javascript" src="js/angular-animate.min.js" charset="utf-8"></script>
-    <!--echarts--><script type="text/javascript" src="js/echarts.common.min.js" charset="utf-8"></script>
+    <!--动画-->
+    <script type="text/javascript" src="js/angular-animate.min.js" charset="utf-8"></script>
+    <!--echarts-->
+    <script type="text/javascript" src="js/echarts.common.min.js" charset="utf-8"></script>
     <!--<script type="text/javascript" src="js/ionic.bundle.min.js" charset="utf-8"></script>-->
 
 </head>
+
 <body>
-<!--loading效果实现-->
-<div id="mask-loading" class="mask-loading" ng-if="loading">
-    <div class="loading-icon"></div>
-</div>
-<div ng-view=""></div>
+    <!--loading效果实现-->
+    <div id="mask-loading" class="mask-loading" ng-if="loading">
+        <div class="loading-icon"></div>
+    </div>
+    <div ng-view=""></div>
 </body>
+
 </html>
