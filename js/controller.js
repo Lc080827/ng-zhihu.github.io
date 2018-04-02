@@ -250,7 +250,7 @@ app.controller("detailController", function($scope, $http, $routeParams) {
 app.controller('favoriteController', function($scope) {
     var ss = localStorage.getItem("favorite");
     $scope.favoriteList = JSON.parse(ss);
-    console.log($scope.favoriteList);
+    //   console.log($scope.favoriteList);
 
 });
 
