@@ -351,7 +351,6 @@ app.controller("writeCommentController", function($scope, $http) {
                 $scope.text = "";
                 history.go(-1);
             }, 1000);
-
         }, function() {
             // swal('系统错误，请稍后再试！', {
             //     icon: "error",
